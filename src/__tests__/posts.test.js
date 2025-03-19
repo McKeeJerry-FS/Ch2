@@ -5,6 +5,7 @@ import {
   listAllPosts,
   listPostsByAuthor,
   listPostsByTag,
+  getPostById,
 } from '../services/posts'
 import { Post } from '../db/models/post'
 
@@ -104,5 +105,16 @@ describe('listing posts', () => {
   test('should be able to filter posts by tag', async () => {
     const posts = await listPostsByTag('nodejs')
     expect(posts.length).toBe(1)
+  })
+})
+
+describe('getting a post', () => {
+  test('should return the full post', async () => {
+    const post = await getPostById(createdSamplePosts[0]._id)
+    expect(post.toObject()).toEqual(createdSamplePosts[0].toObject())
+  })
+  test('should fail if id does not exist', async () => {
+    const post = await getPostById('000000000000000000000000')
+    expect(post).toEqual(null)
   })
 })
