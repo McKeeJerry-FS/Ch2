@@ -6,7 +6,7 @@ dotenv.config()
 
 try {
   await initDatabase()
-  const PORT = process.env.PORT
+  const PORT = process.env.PORT || 3000
   app.listen(PORT)
   console.info(`Express server running on http://localhost:${PORT}`)
 } catch (err) {
